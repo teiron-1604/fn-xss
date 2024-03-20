@@ -419,7 +419,7 @@ export function StripTagBody(
  * @param {String} html
  * @return {String}
  */
-export function stripCommentTag(html: string) {
+export function removeCommentTag(html: string) {
   let retHtml = ''
   let lastPos = 0
   while (lastPos < html.length) {

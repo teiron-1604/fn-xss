@@ -151,7 +151,7 @@ FilterXSS.prototype.process = function (html) {
 
   // remove html comments
   if (!options.allowCommentTag) {
-    html = DEFAULT.stripCommentTag(html)
+    html = DEFAULT.removeCommentTag(html)
   }
 
   // if enable stripIgnoreTagBody
