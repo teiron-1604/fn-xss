@@ -1,52 +1,39 @@
 {
-  "name": "xss",
+  "name": "@fn/xss",
+  "type": "module",
   "main": "./lib/index.js",
   "typings": "./typings/xss.d.ts",
-  "version": "1.0.15",
+  "version": "0.1.0",
   "description": "Sanitize untrusted HTML (to prevent XSS) with a configuration specified by a Whitelist",
   "author": "Zongmin Lei <leizongmin@gmail.com> (http://ucdok.com)",
   "repository": {
     "type": "git",
-    "url": "git://github.com/leizongmin/js-xss.git"
-  },
-  "engines": {
-    "node": ">= 0.10.0"
-  },
-  "dependencies": {
-    "commander": "^2.20.3",
-    "cssfilter": "0.0.10"
-  },
-  "devDependencies": {
-    "browserify": "^17.0.0",
-    "coveralls": "^3.1.1",
-    "debug": "^4.3.4",
-    "eslint": "^8.16.0",
-    "mocha": "^8.4.0",
-    "nyc": "^15.1.0",
-    "uglify-js": "^3.15.5"
+    "url": "https://github.com/teiron-1604/fn-xss"
   },
   "files": [
-    "lib",
-    "bin/xss",
-    "dist",
-    "typings/*.d.ts"
+    "dist"
   ],
-  "bin": {
-    "xss": "./bin/xss"
+  "devDependencies": {
+    "@bassist/commit": "^0.1.1",
+    "@bassist/eslint": "^0.6.1",
+    "@bassist/tsconfig": "^0.1.1",
+    "@types/node": "^20.11.30",
+    "eslint": "^8.57.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.2"
   },
   "scripts": {
-    "lint": "eslint lib/**",
-    "test": "export DEBUG=xss:* && mocha -t 5000",
-    "test-cov": "nyc --reporter=lcov mocha --exit \"test/*.js\" && nyc report",
-    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
-    "build": "./bin/build",
-    "prepublish": "npm run test && npm run build"
+    "build": "tsup",
+    "lint": "eslint src",
+    "prepare": "husky"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/leizongmin/js-xss/issues"
+    "url": "https://github.com/teiron-1604/fn-xss/issues"
   },
-  "homepage": "https://github.com/leizongmin/js-xss",
+  "homepage": "https://github.com/teiron-1604/fn-xss",
   "keywords": [
     "sanitization",
     "xss",
