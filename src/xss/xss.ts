@@ -6,10 +6,10 @@
  * @author Zongmin Lei<leizongmin@gmail.com>
  */
 
+import { spaceIndex } from '../utils'
 import { FilterCSS } from '../css-filter'
 import * as DEFAULT from './default'
 import { parseTag, parseAttr } from './parser'
-import _ from './utils'
 
 /**
  * returns `true` if the input value is `undefined` or `null`
@@ -17,7 +17,7 @@ import _ from './utils'
  * @param {Object} obj
  * @return {Boolean}
  */
-function isNull(obj) {
+function isNull(obj: unknown): obj is null {
   return obj === undefined || obj === null
 }
 
@@ -30,16 +30,16 @@ function isNull(obj) {
  *   - {Boolean} closing
  */
 function getAttrs(html) {
-  const i = _.spaceIndex(html)
+  const i = spaceIndex(html)
   if (i === -1) {
     return {
       html: '',
       closing: html[html.length - 2] === '/',
     }
   }
-  html = _.trim(html.slice(i + 1, -1))
+  html = html.slice(i + 1, -1).trim()
   const isClosing = html[html.length - 1] === '/'
-  if (isClosing) html = _.trim(html.slice(0, -1))
+  if (isClosing) html = html.slice(0, -1).trim()
   return {
     html: html,
     closing: isClosing,
@@ -141,8 +141,8 @@ FilterXSS.prototype.process = function (html) {
   const onIgnoreTagAttr = options.onIgnoreTagAttr
   const safeAttrValue = options.safeAttrValue
   const escapeHtml = options.escapeHtml
-  const attributeWrapSign = me.attributeWrapSign
-  const cssFilter = me.cssFilter
+  const attributeWrapSign = this.attributeWrapSign
+  const cssFilter = this.cssFilter
 
   // remove invisible characters
   if (options.stripBlankChar) {
@@ -187,7 +187,7 @@ FilterXSS.prototype.process = function (html) {
         const whiteAttrList = whiteList[tag]
         const attrsHtml = parseAttr(attrs.html, function (name, value) {
           // call `onTagAttr()`
-          const isWhiteAttr = _.indexOf(whiteAttrList, name) !== -1
+          const isWhiteAttr = whiteAttrList.indexOf(name) !== -1
           let ret = onTagAttr(tag, name, value, isWhiteAttr)
           if (!isNull(ret)) return ret
 

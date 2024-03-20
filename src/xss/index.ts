@@ -23,7 +23,7 @@ export function filterXSS(html: any, options?: any) {
   return xss.process(html)
 }
 
-export { FilterXSS }
+export { FilterXSS, filterXSS as xss }
 
 // using `xss` on the browser, output `filterXSS` to the globals
 if (typeof window !== 'undefined') {

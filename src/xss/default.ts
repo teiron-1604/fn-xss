@@ -9,7 +9,6 @@ import {
   FilterCSS,
   getDefaultWhiteList as getDefaultCSSWhiteList,
 } from '../css-filter'
-import _ from './utils'
 
 export function getDefaultWhiteList() {
   return {
@@ -188,7 +187,7 @@ export function safeAttrValue(
   if (name === 'href' || name === 'src') {
     // filter `href` and `src` attribute
     // only allow the value that starts with `http://` | `https://` | `mailto:` | `/` | `#`
-    value = _.trim(value)
+    value = value.trim()
     if (value === '#') return '#'
     if (
       !(
@@ -315,7 +314,7 @@ export function clearNonPrintableCharacter(str: string) {
   for (let i = 0, len = str.length; i < len; i++) {
     str2 += str.charCodeAt(i) < 32 ? ' ' : str.charAt(i)
   }
-  return _.trim(str2)
+  return str2.trim()
 }
 
 /**
@@ -369,7 +368,7 @@ export function StripTagBody(
   const isRemoveAllTag = !Array.isArray(tags)
   function isRemoveTag(tag: any) {
     if (isRemoveAllTag) return true
-    return _.indexOf(tags, tag) !== -1
+    return tags.indexOf(tag) !== -1
   }
 
   const removeList: any[][] = []
@@ -404,7 +403,7 @@ export function StripTagBody(
     remove: function (html: string) {
       let rethtml = ''
       let lastPos = 0
-      _.forEach(removeList, function (pos: number[]) {
+      removeList.forEach(function (pos: number[]) {
         rethtml += html.slice(lastPos, pos[0])
         lastPos = pos[1]
       })

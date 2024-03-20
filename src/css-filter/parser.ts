@@ -4,8 +4,6 @@
  * @author 老雷<leizongmin@gmail.com>
  */
 
-import _ from './utils'
-
 /**
  * 解析style
  *
@@ -15,10 +13,10 @@ import _ from './utils'
  * @return {String}
  */
 export function parseStyle(
-  css: string | string[],
+  css: string,
   onAttr: (arg0: number, arg1: number, arg2: any, arg3: any, arg4: any) => any,
 ) {
-  css = _.trimRight(css)
+  css = css.trimEnd()
   if (css[css.length - 1] !== ';') css += ';'
   const cssLength = css.length
   let isParenthesisOpen = false
@@ -29,11 +27,11 @@ export function parseStyle(
   function addNewAttr() {
     // 如果没有正常的闭合圆括号，则直接忽略当前属性
     if (!isParenthesisOpen) {
-      const source = _.trim(css.slice(lastPos, i))
+      const source = css.slice(lastPos, i).trim()
       const j = source.indexOf(':')
       if (j !== -1) {
-        const name = _.trim(source.slice(0, j))
-        const value = _.trim(source.slice(j + 1))
+        const name = source.slice(0, j).trim()
+        const value = source.slice(j + 1).trim()
         // 必须有属性名称
         if (name) {
           const ret = onAttr(lastPos, retCSS.length, name, value, source)
@@ -70,5 +68,5 @@ export function parseStyle(
     }
   }
 
-  return _.trim(retCSS)
+  return retCSS.trim()
 }

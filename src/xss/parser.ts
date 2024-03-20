@@ -6,7 +6,7 @@
  * @author Zongmin Lei<leizongmin@gmail.com>
  */
 
-import _ from './utils'
+import { spaceIndex } from '../utils'
 
 /**
  * get tag name
@@ -14,15 +14,15 @@ import _ from './utils'
  * @param {String} html e.g. '<a hef="#">'
  * @return {String}
  */
-function getTagName(html: string | any[]) {
-  const i = _.spaceIndex(html)
+function getTagName(html: string) {
+  const i = spaceIndex(html)
   let tagName
   if (i === -1) {
     tagName = html.slice(1, -1)
   } else {
     tagName = html.slice(1, i + 1)
   }
-  tagName = _.trim(tagName).toLowerCase()
+  tagName = tagName.trim().toLowerCase()
   if (tagName.slice(0, 1) === '/') tagName = tagName.slice(1)
   if (tagName.slice(-1) === '/') tagName = tagName.slice(0, -1)
   return tagName
@@ -158,7 +158,7 @@ export function parseAttr(
   const len = html.length
 
   function addAttr(name: string | boolean, value: undefined) {
-    name = _.trim(name)
+    name = name.trim()
     name = name.replace(REGEXP_ILLEGAL_ATTR_NAME, '').toLowerCase()
     if (name.length < 1) return
     const ret = onAttr(name, value || '')
@@ -184,7 +184,7 @@ export function parseAttr(
         if (j === -1) {
           break
         } else {
-          v = _.trim(html.slice(lastMarkPos + 1, j))
+          v = html.slice(lastMarkPos + 1, j).trim()
           addAttr(tmpName, v)
           tmpName = false
           i = j
@@ -198,7 +198,7 @@ export function parseAttr(
       if (tmpName === false) {
         j = findNextEqual(html, i)
         if (j === -1) {
-          v = _.trim(html.slice(lastPos, i))
+          v = html.slice(lastPos, i).trim()
           addAttr(v)
           tmpName = false
           lastPos = i + 1
@@ -210,7 +210,7 @@ export function parseAttr(
       } else {
         j = findBeforeEqual(html, i - 1)
         if (j === -1) {
-          v = _.trim(html.slice(lastPos, i))
+          v = html.slice(lastPos, i).trim()
           v = stripQuoteWrap(v)
           addAttr(tmpName, v)
           tmpName = false
@@ -227,11 +227,11 @@ export function parseAttr(
     if (tmpName === false) {
       addAttr(html.slice(lastPos))
     } else {
-      addAttr(tmpName, stripQuoteWrap(_.trim(html.slice(lastPos))))
+      addAttr(tmpName, stripQuoteWrap(html.slice(lastPos).trim()))
     }
   }
 
-  return _.trim(retAttrs.join(' '))
+  return retAttrs.join(' ').trim()
 }
 
 function findNextEqual(str: string | any[], i: number) {
