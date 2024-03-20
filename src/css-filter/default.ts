@@ -10,7 +10,7 @@ export function getDefaultWhiteList() {
   // Function: function (val) { } 返回true表示允许该属性，其他值均表示不允许
   // RegExp: regexp.test(val) 返回true表示允许该属性，其他值均表示不允许
   // 除上面列出的值外均表示不允许
-  var whiteList: Record<string, boolean> = {}
+  const whiteList: Record<string, boolean> = {}
 
   whiteList['align-content'] = false // default: auto
   whiteList['align-items'] = false // default: auto
@@ -359,6 +359,7 @@ export function getDefaultWhiteList() {
  * @param {Object} _options
  * @return {String}
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function onAttr(_name: any, _value: any, _options: any) {
   // do nothing
 }
@@ -371,11 +372,12 @@ export function onAttr(_name: any, _value: any, _options: any) {
  * @param {Object} _options
  * @return {String}
  */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function onIgnoreAttr(_name: any, _value: any, _options: any) {
   // do nothing
 }
 
-var REGEXP_URL_JAVASCRIPT = /javascript\s*\:/gim
+const REGEXP_URL_JAVASCRIPT = /javascript\s*\:/gim
 
 /**
  * 过滤属性值

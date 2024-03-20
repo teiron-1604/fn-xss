@@ -6,7 +6,6 @@
 
 import * as DEFAULT from './default'
 import { parseStyle } from './parser'
-import _ from './utils'
 
 /**
  * 返回值是否为空
@@ -25,8 +24,8 @@ function isNull(obj: null | undefined) {
  * @return {Object}
  */
 function shallowCopyObject(obj: { [x: string]: any }) {
-  var ret: Record<any, any> = {}
-  for (var i in obj) {
+  const ret: Record<any, any> = {}
+  for (const i in obj) {
     ret[i] = obj[i]
   }
   return ret
@@ -52,7 +51,7 @@ export function FilterCSS(options?: {
   options.onAttr = options.onAttr || DEFAULT.onAttr
   options.onIgnoreAttr = options.onIgnoreAttr || DEFAULT.onIgnoreAttr
   options.safeAttrValue = options.safeAttrValue || DEFAULT.safeAttrValue
-  // @ts-ignore
+  // @ts-expect-error
   this.options = options
 }
 
@@ -62,24 +61,23 @@ FilterCSS.prototype.process = function (css: string) {
   css = css.toString()
   if (!css) return ''
 
-  var me = this
-  var options = me.options
-  var whiteList = options.whiteList
-  var onAttr = options.onAttr
-  var onIgnoreAttr = options.onIgnoreAttr
-  var safeAttrValue = options.safeAttrValue
+  const options = this.options
+  const whiteList = options.whiteList
+  const onAttr = options.onAttr
+  const onIgnoreAttr = options.onIgnoreAttr
+  const safeAttrValue = options.safeAttrValue
 
-  var retCSS = parseStyle(
+  const retCSS = parseStyle(
     css,
     function (
       sourcePosition: any,
       position: any,
       name: string,
       value: string,
-      source: any
+      source: any,
     ) {
-      var check = whiteList[name]
-      var isWhite = false
+      const check = whiteList[name]
+      let isWhite = false
       if (check === true) isWhite = check
       else if (typeof check === 'function') isWhite = check(value)
       else if (check instanceof RegExp) isWhite = check.test(value)
@@ -89,7 +87,7 @@ FilterCSS.prototype.process = function (css: string) {
       value = safeAttrValue(name, value)
       if (!value) return
 
-      var opts = {
+      const opts = {
         position: position,
         sourcePosition: sourcePosition,
         source: source,
@@ -97,19 +95,19 @@ FilterCSS.prototype.process = function (css: string) {
       }
 
       if (isWhite) {
-        var ret = onAttr(name, value, opts)
+        const ret = onAttr(name, value, opts)
         if (isNull(ret)) {
           return name + ':' + value
         } else {
           return ret
         }
       } else {
-        var ret = onIgnoreAttr(name, value, opts)
+        const ret = onIgnoreAttr(name, value, opts)
         if (!isNull(ret)) {
           return ret
         }
       }
-    }
+    },
   )
 
   return retCSS

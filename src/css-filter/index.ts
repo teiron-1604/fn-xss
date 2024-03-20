@@ -17,13 +17,13 @@ export * from './default'
  * @return {String}
  */
 export function filterCSS(html: any, options?: any) {
-  // @ts-ignore
-  var xss = new FilterCSS(options)
+  // @ts-expect-error
+  const xss = new FilterCSS(options)
   return xss.process(html)
 }
 
 // 在浏览器端使用
 if (typeof window !== 'undefined') {
-  // @ts-ignore
+  // @ts-expect-error
   window.filterCSS = filterCSS
 }

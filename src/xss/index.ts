@@ -18,8 +18,8 @@ export * from './parser'
  * @return {String}
  */
 export function filterXSS(html: any, options?: any) {
-  // @ts-ignore
-  var xss = new FilterXSS(options)
+  // @ts-expect-error
+  const xss = new FilterXSS(options)
   return xss.process(html)
 }
 
@@ -27,7 +27,7 @@ export { FilterXSS }
 
 // using `xss` on the browser, output `filterXSS` to the globals
 if (typeof window !== 'undefined') {
-  // @ts-ignore
+  // @ts-expect-error
   window.filterXSS = filterXSS
 }
 
@@ -35,13 +35,13 @@ if (typeof window !== 'undefined') {
 function isWorkerEnv() {
   return (
     typeof self !== 'undefined' &&
-    // @ts-ignore
+    // @ts-expect-error
     typeof DedicatedWorkerGlobalScope !== 'undefined' &&
-    // @ts-ignore
+    // @ts-expect-error
     self instanceof DedicatedWorkerGlobalScope
   )
 }
 if (isWorkerEnv()) {
-  // @ts-ignore
+  // @ts-expect-error
   self.filterXSS = filterXSS
 }

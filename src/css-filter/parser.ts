@@ -16,27 +16,27 @@ import _ from './utils'
  */
 export function parseStyle(
   css: string | string[],
-  onAttr: (arg0: number, arg1: number, arg2: any, arg3: any, arg4: any) => any
+  onAttr: (arg0: number, arg1: number, arg2: any, arg3: any, arg4: any) => any,
 ) {
   css = _.trimRight(css)
   if (css[css.length - 1] !== ';') css += ';'
-  var cssLength = css.length
-  var isParenthesisOpen = false
-  var lastPos = 0
-  var i = 0
-  var retCSS = ''
+  const cssLength = css.length
+  let isParenthesisOpen = false
+  let lastPos = 0
+  let i = 0
+  let retCSS = ''
 
   function addNewAttr() {
     // 如果没有正常的闭合圆括号，则直接忽略当前属性
     if (!isParenthesisOpen) {
-      var source = _.trim(css.slice(lastPos, i))
-      var j = source.indexOf(':')
+      const source = _.trim(css.slice(lastPos, i))
+      const j = source.indexOf(':')
       if (j !== -1) {
-        var name = _.trim(source.slice(0, j))
-        var value = _.trim(source.slice(j + 1))
+        const name = _.trim(source.slice(0, j))
+        const value = _.trim(source.slice(j + 1))
         // 必须有属性名称
         if (name) {
-          var ret = onAttr(lastPos, retCSS.length, name, value, source)
+          const ret = onAttr(lastPos, retCSS.length, name, value, source)
           if (ret) retCSS += ret + '; '
         }
       }
@@ -45,10 +45,10 @@ export function parseStyle(
   }
 
   for (; i < cssLength; i++) {
-    var c = css[i]
+    const c = css[i]
     if (c === '/' && css[i + 1] === '*') {
       // 备注开始
-      var j = css.indexOf('*/', i + 2)
+      const j = css.indexOf('*/', i + 2)
       // 如果没有正常的备注结束，则后面的部分全部跳过
       if (j === -1) break
       // 直接将当前位置调到备注结尾，并且初始化状态

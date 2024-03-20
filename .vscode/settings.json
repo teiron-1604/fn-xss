@@ -1,4 +1,4 @@
 {
   "eslint.experimental.useFlatConfig": true,
-  "cSpell.words": ["cssfilter", "sanitisation", "teiron", "tsup"]
+  "cSpell.words": ["cssfilter", "nocheck", "sanitisation", "teiron", "tsup"]
 }

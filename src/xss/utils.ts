@@ -1,7 +1,7 @@
 // @ts-nocheck
 export default {
   indexOf: function (arr, item) {
-    var i, j
+    let i, j
     if (Array.prototype.indexOf) {
       return arr.indexOf(item)
     }
@@ -13,7 +13,7 @@ export default {
     return -1
   },
   forEach: function (arr, fn, scope) {
-    var i, j
+    let i, j
     if (Array.prototype.forEach) {
       return arr.forEach(fn, scope)
     }
@@ -28,8 +28,8 @@ export default {
     return str.replace(/(^\s*)|(\s*$)/g, '')
   },
   spaceIndex: function (str) {
-    var reg = /\s|\n|\t/
-    var match = reg.exec(str)
+    const reg = /\s|\n|\t/
+    const match = reg.exec(str)
     return match ? match.index : -1
   },
 }

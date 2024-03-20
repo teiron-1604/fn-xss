@@ -15,8 +15,8 @@ import _ from './utils'
  * @return {String}
  */
 function getTagName(html: string | any[]) {
-  var i = _.spaceIndex(html)
-  var tagName
+  const i = _.spaceIndex(html)
+  let tagName
   if (i === -1) {
     tagName = html.slice(1, -1)
   } else {
@@ -58,23 +58,23 @@ export function parseTag(
     arg1: number,
     arg2: string,
     arg3: string,
-    arg4: boolean
+    arg4: boolean,
   ) => string,
-  escapeHtml: (arg0: any) => string
+  escapeHtml: (arg0: any) => string,
 ) {
   'use strict'
 
-  var rethtml = ''
-  var lastPos = 0
-  var tagStart = false
-  var quoteStart = false
-  var currentPos = 0
-  var len = html.length
-  var currentTagName = ''
-  var currentHtml = ''
+  let rethtml = ''
+  let lastPos = 0
+  let tagStart = false
+  let quoteStart = false
+  let currentPos = 0
+  const len = html.length
+  let currentTagName = ''
+  let currentHtml = ''
 
   chariterator: for (currentPos = 0; currentPos < len; currentPos++) {
-    var c = html.charAt(currentPos)
+    const c = html.charAt(currentPos)
     if (tagStart === false) {
       if (c === '<') {
         tagStart = currentPos
@@ -97,15 +97,15 @@ export function parseTag(
             rethtml.length,
             currentTagName,
             currentHtml,
-            isClosing(currentHtml)
+            isClosing(currentHtml),
           )
           lastPos = currentPos + 1
           tagStart = false
           continue
         }
         if (c === '"' || c === "'") {
-          var i = 1
-          var ic = html.charAt(currentPos - i)
+          let i = 1
+          let ic = html.charAt(currentPos - i)
 
           while (ic.trim() === '' || ic === '=') {
             if (ic === '=') {
@@ -130,7 +130,7 @@ export function parseTag(
   return rethtml
 }
 
-var REGEXP_ILLEGAL_ATTR_NAME = /[^a-zA-Z0-9\\_:.-]/gim
+const REGEXP_ILLEGAL_ATTR_NAME = /[^a-zA-Z0-9\\_:.-]/gim
 
 /**
  * parse input attributes and returns processed attributes
@@ -147,28 +147,28 @@ export function parseAttr(
     indexOf: (arg0: any, arg1: number) => any
     replace: (arg0: RegExp, arg1: string) => any
   },
-  onAttr: (arg0: any, arg1: any) => any
+  onAttr: (arg0: any, arg1: any) => any,
 ) {
   'use strict'
 
-  var lastPos = 0
-  var lastMarkPos = 0
-  var retAttrs: any[] = []
-  var tmpName = false
-  var len = html.length
+  let lastPos = 0
+  let lastMarkPos = 0
+  const retAttrs: any[] = []
+  let tmpName = false
+  const len = html.length
 
   function addAttr(name: string | boolean, value: undefined) {
     name = _.trim(name)
     name = name.replace(REGEXP_ILLEGAL_ATTR_NAME, '').toLowerCase()
     if (name.length < 1) return
-    var ret = onAttr(name, value || '')
+    const ret = onAttr(name, value || '')
     if (ret) retAttrs.push(ret)
   }
 
   // 逐个分析字符
-  for (var i = 0; i < len; i++) {
-    var c = html.charAt(i)
-    var v, j
+  for (let i = 0; i < len; i++) {
+    const c = html.charAt(i)
+    let v, j
     if (tmpName === false && c === '=') {
       tmpName = html.slice(lastPos, i)
       lastPos = i + 1
@@ -236,7 +236,7 @@ export function parseAttr(
 
 function findNextEqual(str: string | any[], i: number) {
   for (; i < str.length; i++) {
-    var c = str[i]
+    const c = str[i]
     if (c === ' ') continue
     if (c === '=') return i
     return -1
@@ -245,7 +245,7 @@ function findNextEqual(str: string | any[], i: number) {
 
 function findNextQuotationMark(str: string | any[], i: number) {
   for (; i < str.length; i++) {
-    var c = str[i]
+    const c = str[i]
     if (c === ' ') continue
     if (c === "'" || c === '"') return i
     return -1
@@ -254,7 +254,7 @@ function findNextQuotationMark(str: string | any[], i: number) {
 
 function findBeforeEqual(str: { [x: string]: any }, i: number) {
   for (; i > 0; i--) {
-    var c = str[i]
+    const c = str[i]
     if (c === ' ') continue
     if (c === '=') return i
     return -1

@@ -30,7 +30,7 @@ function isNull(obj) {
  *   - {Boolean} closing
  */
 function getAttrs(html) {
-  var i = _.spaceIndex(html)
+  const i = _.spaceIndex(html)
   if (i === -1) {
     return {
       html: '',
@@ -38,7 +38,7 @@ function getAttrs(html) {
     }
   }
   html = _.trim(html.slice(i + 1, -1))
-  var isClosing = html[html.length - 1] === '/'
+  const isClosing = html[html.length - 1] === '/'
   if (isClosing) html = _.trim(html.slice(0, -1))
   return {
     html: html,
@@ -53,16 +53,16 @@ function getAttrs(html) {
  * @return {Object}
  */
 function shallowCopyObject(obj) {
-  var ret = {}
-  for (var i in obj) {
+  const ret = {}
+  for (const i in obj) {
     ret[i] = obj[i]
   }
   return ret
 }
 
 function keysToLowerCase(obj) {
-  var ret = {}
-  for (var i in obj) {
+  const ret = {}
+  for (const i in obj) {
     if (Array.isArray(obj[i])) {
       ret[i.toLowerCase()] = obj[i].map(function (item) {
         return item.toLowerCase()
@@ -89,7 +89,7 @@ export function FilterXSS(options) {
   if (options.stripIgnoreTag) {
     if (options.onIgnoreTag) {
       console.error(
-        'Notes: cannot use these two options "stripIgnoreTag" and "onIgnoreTag" at the same time'
+        'Notes: cannot use these two options "stripIgnoreTag" and "onIgnoreTag" at the same time',
       )
     }
     options.onIgnoreTag = DEFAULT.onIgnoreTagStripAll
@@ -133,17 +133,16 @@ FilterXSS.prototype.process = function (html) {
   html = html.toString()
   if (!html) return ''
 
-  var me = this
-  var options = me.options
-  var whiteList = options.whiteList
-  var onTag = options.onTag
-  var onIgnoreTag = options.onIgnoreTag
-  var onTagAttr = options.onTagAttr
-  var onIgnoreTagAttr = options.onIgnoreTagAttr
-  var safeAttrValue = options.safeAttrValue
-  var escapeHtml = options.escapeHtml
-  var attributeWrapSign = me.attributeWrapSign
-  var cssFilter = me.cssFilter
+  const options = this.options
+  const whiteList = options.whiteList
+  const onTag = options.onTag
+  let onIgnoreTag = options.onIgnoreTag
+  const onTagAttr = options.onTagAttr
+  const onIgnoreTagAttr = options.onIgnoreTagAttr
+  const safeAttrValue = options.safeAttrValue
+  const escapeHtml = options.escapeHtml
+  const attributeWrapSign = me.attributeWrapSign
+  const cssFilter = me.cssFilter
 
   // remove invisible characters
   if (options.stripBlankChar) {
@@ -156,19 +155,19 @@ FilterXSS.prototype.process = function (html) {
   }
 
   // if enable stripIgnoreTagBody
-  var stripIgnoreTagBody = false
+  let stripIgnoreTagBody = false
   if (options.stripIgnoreTagBody) {
     stripIgnoreTagBody = DEFAULT.StripTagBody(
       options.stripIgnoreTagBody,
-      onIgnoreTag
+      onIgnoreTag,
     )
     onIgnoreTag = stripIgnoreTagBody.onIgnoreTag
   }
 
-  var retHtml = parseTag(
+  let retHtml = parseTag(
     html,
     function (sourcePosition, position, tag, html, isClosing) {
-      var info = {
+      const info = {
         sourcePosition: sourcePosition,
         position: position,
         isClosing: isClosing,
@@ -176,7 +175,7 @@ FilterXSS.prototype.process = function (html) {
       }
 
       // call `onTag()`
-      var ret = onTag(tag, html, info)
+      let ret = onTag(tag, html, info)
       if (!isNull(ret)) return ret
 
       if (info.isWhite) {
@@ -184,12 +183,12 @@ FilterXSS.prototype.process = function (html) {
           return '</' + tag + '>'
         }
 
-        var attrs = getAttrs(html)
-        var whiteAttrList = whiteList[tag]
-        var attrsHtml = parseAttr(attrs.html, function (name, value) {
+        const attrs = getAttrs(html)
+        const whiteAttrList = whiteList[tag]
+        const attrsHtml = parseAttr(attrs.html, function (name, value) {
           // call `onTagAttr()`
-          var isWhiteAttr = _.indexOf(whiteAttrList, name) !== -1
-          var ret = onTagAttr(tag, name, value, isWhiteAttr)
+          const isWhiteAttr = _.indexOf(whiteAttrList, name) !== -1
+          let ret = onTagAttr(tag, name, value, isWhiteAttr)
           if (!isNull(ret)) return ret
 
           if (isWhiteAttr) {
@@ -221,7 +220,7 @@ FilterXSS.prototype.process = function (html) {
         return escapeHtml(html)
       }
     },
-    escapeHtml
+    escapeHtml,
   )
 
   // if enable stripIgnoreTagBody

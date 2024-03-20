@@ -1,28 +1,28 @@
 {
   "name": "@fn/xss",
-  "type": "module",
-  "main": "./lib/index.js",
-  "typings": "./typings/xss.d.ts",
-  "version": "0.1.0",
   "description": "Sanitize untrusted HTML (to prevent XSS) with a configuration specified by a Whitelist",
+  "version": "0.1.0",
   "author": "Zongmin Lei <leizongmin@gmail.com> (http://ucdok.com)",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/teiron-1604/fn-xss"
-  },
+  "type": "module",
   "files": [
     "dist"
   ],
-  "devDependencies": {
-    "@bassist/commit": "^0.1.1",
-    "@bassist/eslint": "^0.6.1",
-    "@bassist/tsconfig": "^0.1.1",
-    "@types/node": "^20.11.30",
-    "eslint": "^8.57.0",
-    "husky": "^9.0.11",
-    "lint-staged": "^15.2.2",
-    "tsup": "^8.0.2",
-    "typescript": "^5.4.2"
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "publishConfig": {
+    "registry": "http://verdaccio.teiron-inc.cn:4873/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/teiron-1604/fn-xss"
   },
   "scripts": {
     "build": "tsup",
@@ -30,10 +30,6 @@
     "prepare": "husky"
   },
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/teiron-1604/fn-xss/issues"
-  },
-  "homepage": "https://github.com/teiron-1604/fn-xss",
   "keywords": [
     "sanitization",
     "xss",
@@ -48,5 +44,23 @@
     "html",
     "injection",
     "whitelist"
-  ]
+  ],
+  "devDependencies": {
+    "@bassist/commit": "^0.1.1",
+    "@bassist/eslint": "^0.6.1",
+    "@bassist/tsconfig": "^0.1.1",
+    "@types/node": "^20.11.30",
+    "eslint": "^8.57.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.2"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint src"
+    ]
+  }
 }
