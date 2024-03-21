@@ -2,7 +2,7 @@
   "name": "@fn/xss",
   "description": "Sanitize untrusted HTML (to prevent XSS) with a configuration specified by a Whitelist",
   "version": "0.1.0",
-  "author": "Zongmin Lei <leizongmin@gmail.com> (http://ucdok.com)",
+  "author": "chengpeiquan <chengpeiquan@chengpeiquan.com>",
   "type": "module",
   "files": [
     "dist"

@@ -22,7 +22,7 @@ pnpm add @fn/xss
 
 See: [中文文档](https://github.com/leizongmin/js-xss/blob/v1.0.15/README.zh.md)
 
-或者在 [assets](./assets) 目录下查看存档文档。
+或者在 [assets](https://github.com/teiron-1604/fn-xss/blob/main/assets) 目录下查看存档文档。
 
 - 用法变化
 
@@ -48,4 +48,4 @@ xss(htmlCode)
 
 原包已有的测试用例已全部验证通过。
 
-![单测结果](./assets/test-result.jpg)
+![单测结果](https://github.com/teiron-1604/fn-xss/raw/main/assets/test-result.jpg)
