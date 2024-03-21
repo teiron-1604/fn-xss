@@ -6,7 +6,7 @@
  * @author Zongmin Lei<leizongmin@gmail.com>
  */
 
-import { spaceIndex } from '../utils'
+import { spaceIndex } from '../shared/utils'
 
 /**
  * get tag name

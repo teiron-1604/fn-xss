@@ -6,7 +6,7 @@
  * @author Zongmin Lei<leizongmin@gmail.com>
  */
 
-import { spaceIndex } from '../utils'
+import { spaceIndex } from '../shared/utils'
 import { FilterCSS } from '../css-filter'
 import * as DEFAULT from './default'
 import { parseTag, parseAttr } from './parser'
