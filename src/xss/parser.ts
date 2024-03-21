@@ -40,27 +40,17 @@ function isClosing(html: string) {
 
 /**
  * parse input html and returns processed html
- *
- * @param {String} html
- * @param {Function} onTag e.g. function (sourcePosition, position, tag, html, isClosing)
- * @param {Function} escapeHtml
- * @return {String}
  */
 export function parseTag(
-  html: {
-    length: any
-    charAt: (arg0: number) => any
-    slice: (arg0: number | boolean, arg1: number | boolean) => string
-    substr: (arg0: number) => any
-  },
+  html: string,
   onTag: (
-    arg0: boolean,
-    arg1: number,
-    arg2: string,
-    arg3: string,
-    arg4: boolean,
+    sourcePosition: boolean,
+    position: number,
+    tag: string,
+    html: string,
+    isClosing: boolean,
   ) => string,
-  escapeHtml: (arg0: any) => string,
+  escapeHtml: (html: any) => string,
 ) {
   'use strict'
 
@@ -140,14 +130,8 @@ const REGEXP_ILLEGAL_ATTR_NAME = /[^a-zA-Z0-9\\_:.-]/gim
  * @return {String}
  */
 export function parseAttr(
-  html: {
-    length: number
-    charAt: (arg0: number) => string
-    slice: (arg0: number, arg1: number | undefined) => boolean
-    indexOf: (arg0: any, arg1: number) => any
-    replace: (arg0: RegExp, arg1: string) => any
-  },
-  onAttr: (arg0: any, arg1: any) => any,
+  html: string,
+  onAttr: (name: any, value: any) => any,
 ) {
   'use strict'
 

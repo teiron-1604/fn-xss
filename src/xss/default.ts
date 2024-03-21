@@ -9,8 +9,11 @@ import {
   FilterCSS,
   getDefaultWhiteList as getDefaultCSSWhiteList,
 } from '../css-filter'
+import type { DefaultWhitelistHtmlTag } from './types'
 
-export function getDefaultWhiteList() {
+type DefaultWhitelist = Record<DefaultWhitelistHtmlTag, string[]>
+
+export function getDefaultWhiteList(): DefaultWhitelist {
   return {
     a: ['target', 'href', 'title'],
     abbr: ['title'],
