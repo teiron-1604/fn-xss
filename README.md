@@ -4,6 +4,20 @@
 
 基于 [js-xss](https://github.com/leizongmin/js-xss) `v1.0.15` 版本，功能上保持一致。
 
+## 安装
+
+在项目根目录下添加 `.npmrc` 文件，写入以下注册表指向：
+
+```bash
+@fn:registry=http://verdaccio.teiron-inc.cn:4873/
+```
+
+即可安装本包。
+
+```bash
+pnpm add @fn/xss
+```
+
 ## 文档
 
 See: [中文文档](https://github.com/leizongmin/js-xss/blob/v1.0.15/README.zh.md)
@@ -17,6 +31,8 @@ See: [中文文档](https://github.com/leizongmin/js-xss/blob/v1.0.15/README.zh.
 ```ts
 // 按需导入
 import { xss, getDefaultWhiteList, getDefaultCSSWhiteList } from '@fn/xss'
+
+xss(htmlCode)
 ```
 
 ## 改动说明
